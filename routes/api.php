@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PessoaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(
+    ['prefix' => 'pessoa'],
+    function () {
+        Route::get('listar/{id?}', [PessoaController::class, 'listar']);
+        Route::post('cadastrar', [PessoaController::class, 'cadastrar']);
+        Route::put('editar/{id?}', [PessoaController::class, 'editar']);
+        Route::delete('deletar/{id?}', [PessoaController::class, 'deletar']);
+    }
+);
