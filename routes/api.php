@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\PessoaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,3 +29,5 @@ Route::group(
         Route::delete('deletar/{id?}', [PessoaController::class, 'deletar']);
     }
 );
+
+Route::get('endereco/{cep}', [EnderecoController::class, 'endereco']);

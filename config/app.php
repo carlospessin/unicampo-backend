@@ -5,6 +5,8 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
+    'key_google_api' => env('KEY_GOOGLE_API'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
