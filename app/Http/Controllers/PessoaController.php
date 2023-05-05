@@ -5,6 +5,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\Pessoa;
+use Illuminate\Support\Facades\Session;
+
 
 class PessoaController extends Controller
 {
@@ -105,7 +107,6 @@ class PessoaController extends Controller
 
     public function cadastrar(Request $request)
     {
-
         try {
             $form = $request->all();
             $form['data_nascimento'] = date('Y-m-d', strtotime($form['data_nascimento']));
@@ -120,7 +121,6 @@ class PessoaController extends Controller
         } catch (Exception $e) {
             return response()->json($e->getMessage(), $e->getCode());
         }
-        
     }
 
  /**
@@ -209,6 +209,35 @@ class PessoaController extends Controller
         } catch (Exception $e) {
             return response()->json($e->getMessage(), $e->getCode());
         }
+    }
+
+    public function salvar(Request $request)
+    {
+        $nome = $request->input('nome');
+        $data_nascimento = $request->input('data_nascimento');
+        $tipo = $request->input('tipo');
+        $cpfCnpj = $request->input('cpfCnpj');
+        $email = $request->input('email');
+        $endereco = $request->input('endereco');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        
+        // Faça a validação dos dados se necessário
+        
+        $dados = [
+            'nome' => $nome,
+            'data_nascimento' => $data_nascimento,
+            'tipo' => $tipo,
+            'cpfCnpj' => $cpfCnpj,
+            'email' => $email,
+            'endereco' => $endereco,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+        ];
+        
+        DB::table('tabela')->insert($dados);
+        
+        return redirect('/')->with('mensagem', 'Dados salvos com sucesso!');
     }
 
 }

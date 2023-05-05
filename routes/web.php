@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PessoaController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleMapsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/',[GoogleMapsController::class, 'index']);
+// Route::post('/api/cadastrar', [PessoaController::class, 'cadastrar']);
