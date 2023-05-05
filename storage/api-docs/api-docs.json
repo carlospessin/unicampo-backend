@@ -1,0 +1,317 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação Api",
+        "description": "Documentação da api para teste da vaga de Backend",
+        "contact": {
+            "name": "Carlos Pessin",
+            "email": "carlospessin@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/endereco/{cep}": {
+            "get": {
+                "tags": [
+                    "Endereço"
+                ],
+                "summary": "Retorna o endereço a partir do CEP",
+                "description": "Retorna o endereço formatado a partir do CEP informado",
+                "operationId": "426912fcb6a56ddf5c60439ed85ebbf0",
+                "parameters": [
+                    {
+                        "name": "cep",
+                        "in": "path",
+                        "description": "CEP para busca do endereço (somente números)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "[0-9]{8}"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Endereço encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "endereco": {
+                                            "description": "Endereço formatado a partir do CEP",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Endereço não encontrado"
+                    }
+                }
+            }
+        },
+        "/api/pessoa/listar": {
+            "get": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Retorna todas as pessoas cadastradas",
+                "description": "Retorna todas as pessoas cadastradas",
+                "operationId": "67a97f12448570e10cddece468940fe1",
+                "responses": {
+                    "200": {
+                        "description": "Lista de pessoas encontradas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Pessoa"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pessoa/listar/{id}": {
+            "get": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Retorna uma pessoa específica",
+                "description": "Retorna uma pessoa específica pelo ID",
+                "operationId": "09b83e2e5a2ac348ec34f4c876c95e0a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da pessoa a ser buscada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pessoa encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Pessoa"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Pessoa não encontrada"
+                    }
+                }
+            }
+        },
+        "/api/pessoa/cadastrar": {
+            "post": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Cadastra uma nova pessoa",
+                "description": "Cadastra uma nova pessoa",
+                "operationId": "a4e82ece89a0cf2fe8df0bd0deeaeecd",
+                "requestBody": {
+                    "description": "Dados da pessoa a ser cadastrada",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "João da Silva"
+                                    },
+                                    "cpf_cnpj": {
+                                        "type": "string",
+                                        "example": "12345678900"
+                                    },
+                                    "endereco": {
+                                        "type": "string",
+                                        "example": "Rua A, 123"
+                                    },
+                                    "latitude": {
+                                        "type": "number",
+                                        "example": "-23.550520"
+                                    },
+                                    "longitude": {
+                                        "type": "number",
+                                        "example": "-46.633309"
+                                    },
+                                    "tipo": {
+                                        "type": "string",
+                                        "example": "F"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "joao.silva@gmail.com"
+                                    },
+                                    "data_nascimento": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-01-01"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Pessoa cadastrada com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação dos campos"
+                    },
+                    "500": {
+                        "description": "Erro interno no servidor"
+                    }
+                }
+            }
+        },
+        "/api/pessoa/editar/{id}": {
+            "put": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Edita uma pessoa",
+                "description": "Edita uma pessoa existente pelo ID",
+                "operationId": "f1fbb5e955b81188d742b33c0a5fbea0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da pessoa a ser editada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados da pessoa a ser editada",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Pessoa"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Pessoa editada com sucesso"
+                    },
+                    "404": {
+                        "description": "Pessoa não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação dos dados"
+                    }
+                }
+            }
+        },
+        "/api/pessoa/deletar/{id}": {
+            "delete": {
+                "tags": [
+                    "Pessoas"
+                ],
+                "summary": "Deleta uma pessoa",
+                "description": "Deleta uma pessoa pelo ID",
+                "operationId": "a94ce9f35761962b073b7c8bb33952f4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da pessoa a ser deletada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pessoa deletada com sucesso"
+                    },
+                    "404": {
+                        "description": "Pessoa não encontrada"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Pessoa": {
+                "required": [
+                    "id",
+                    "nome",
+                    "cpf_cnpj",
+                    "endereco",
+                    "latitude",
+                    "longitude",
+                    "tipo",
+                    "email",
+                    "data_nascimento"
+                ],
+                "properties": {
+                    "nome": {
+                        "description": "Nome do registro.",
+                        "type": "string"
+                    },
+                    "data_nascimento": {
+                        "description": "Data de nascimento do registro.",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "tipo": {
+                        "description": "Tipo do registro. Pode ser 'F' para pessoa física ou 'J' para pessoa jurídica.",
+                        "type": "string",
+                        "enum": [
+                            "F",
+                            "J"
+                        ]
+                    },
+                    "cpf_cnpj": {
+                        "description": "CPF ou CNPJ do registro. Deve seguir o formato correto para o tipo escolhido.",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Endereço de e-mail do registro.",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "endereco": {
+                        "description": "Endereço do registro.",
+                        "type": "string"
+                    },
+                    "latitude": {
+                        "description": "Latitude do registro.",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "longitude": {
+                        "description": "Longitude do registro.",
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

@@ -25,6 +25,58 @@ class Pessoa extends Model
         'longitude'
     ];
 
+    /**
+ * @OA\Schema(
+ *     schema="Pessoa",
+ *     required={"id", "nome", "cpf_cnpj", "endereco", "latitude", "longitude", "tipo", "email", "data_nascimento"},
+ *     @OA\Property(
+ *         property="nome",
+ *         type="string",
+ *         description="Nome do registro."
+ *     ),
+ *     @OA\Property(
+ *         property="data_nascimento",
+ *         type="string",
+ *         format="date",
+ *         description="Data de nascimento do registro."
+ *     ),
+ *     @OA\Property(
+ *         property="tipo",
+ *         type="string",
+ *         enum={"F", "J"},
+ *         description="Tipo do registro. Pode ser 'F' para pessoa física ou 'J' para pessoa jurídica."
+ *     ),
+ *     @OA\Property(
+ *         property="cpf_cnpj",
+ *         type="string",
+ *         description="CPF ou CNPJ do registro. Deve seguir o formato correto para o tipo escolhido."
+ *     ),
+ *     @OA\Property(
+ *         property="email",
+ *         type="string",
+ *         format="email",
+ *         description="Endereço de e-mail do registro."
+ *     ),
+ *     @OA\Property(
+ *         property="endereco",
+ *         type="string",
+ *         description="Endereço do registro."
+ *     ),
+ *     @OA\Property(
+ *         property="latitude",
+ *         type="number",
+ *         format="float",
+ *         description="Latitude do registro."
+ *     ),
+ *      @OA\Property(
+ *          property="longitude",
+ *          type="number",
+ *          format="float",
+ *          description="Longitude do registro."
+ *     )
+ * )
+*/
+
     public function rules($form)
     {
         $tipo = $form['tipo'];
