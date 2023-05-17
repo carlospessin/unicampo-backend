@@ -8,6 +8,7 @@
 #### Instruções
 
 :mega: Necessário ter instalado o [Composer](https://getcomposer.org/), [Xampp](https://www.apachefriends.org/pt_br/index.html) e o [GIT](https://git-scm.com/)
+:mega: Coloque a chave da API do google no .env.example
 
 - Execute o módulo MySQL do Xampp
 - Clone este repositório `https://github.com/carlospessin/unicampo-backend`
